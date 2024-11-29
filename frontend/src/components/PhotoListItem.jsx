@@ -6,7 +6,7 @@ import PhotoFavButton from "./PhotoFavButton";
 const PhotoListItem = (props) => {
   const { photo, addToFavourites, toggleModal } = props
   const handleClick = () => {
-    toggleModal([photo.urls.full, photo.similar_photos])
+    toggleModal(photo)
   }
   return (
     <div className="photo-list__item">

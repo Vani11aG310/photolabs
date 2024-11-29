@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div className="App">
       <HomeRoute photos={photosData} topics={topicsData} addToFavourites={addToFavourites} favourites={favourites} toggleModal={toggleModal} />
-      {showModal ? <PhotoDetailsModal photoDetails={photoDetails} toggleModal={toggleModal} /> : ""}
+      {showModal ? <PhotoDetailsModal photoDetails={photoDetails} addToFavourites={addToFavourites} favourites={favourites} toggleModal={toggleModal} /> : ""}
     </div>
   );
 };
