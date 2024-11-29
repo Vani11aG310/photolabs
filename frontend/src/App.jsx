@@ -27,7 +27,7 @@ const App = () => {
   return (
     <div className="App">
       <HomeRoute photos={photosData} topics={topicsData} addToFavourites={addToFavourites} favourites={favourites} toggleModal={toggleModal}/>
-      {showModal ? <PhotoDetailsModal photo={photosData[0]}/> : ""}
+      {showModal ? <PhotoDetailsModal photo={photosData[0]} toggleModal={toggleModal}/> : ""}
     </div>
   );
 };
