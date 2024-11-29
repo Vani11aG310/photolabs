@@ -11,11 +11,11 @@ const App = () => {
   const photosData = photos;
   const topicsData = topics;
   const [favourites, setFavourites] = useState([]);
-  const addToFavourites = (photo, likeStatus) => {
+  const addToFavourites = (photoID, likeStatus) => {
     if (likeStatus) {
-      setFavourites([...favourites, photo])
+      setFavourites([...favourites, photoID])
     } else {
-      setFavourites(prevFavourites => { return prevFavourites.filter(pic => pic !== photo)})
+      setFavourites(prevFavourites => { return prevFavourites.filter(picID => picID !== photoID)})
     }
   }
   return (
