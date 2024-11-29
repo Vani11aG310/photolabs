@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import './App.scss';
-import './styles/PhotoList.scss'
+import './styles/PhotoList.scss';
 import HomeRoute from 'routes/HomeRoute';
 import photos from 'mocks/photos';
 import topics from 'mocks/topics';
@@ -13,21 +13,24 @@ const App = () => {
   const topicsData = topics;
   const [favourites, setFavourites] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [photoDetails, setPhotoDetails] = useState();
   const addToFavourites = (photoID, likeStatus) => {
     if (likeStatus) {
-      setFavourites([...favourites, photoID])
+      setFavourites([...favourites, photoID]);
     } else {
-      setFavourites(prevFavourites => { return prevFavourites.filter(picID => picID !== photoID)})
+      setFavourites(prevFavourites => { return prevFavourites.filter(picID => picID !== photoID); });
     }
-  }
+  };
 
-  const toggleModal = () => {
-    setShowModal(!showModal)
-  }
+  const toggleModal = (photo) => {
+    setPhotoDetails(photo)
+    setShowModal(!showModal);
+  };
+
   return (
     <div className="App">
-      <HomeRoute photos={photosData} topics={topicsData} addToFavourites={addToFavourites} favourites={favourites} toggleModal={toggleModal}/>
-      {showModal ? <PhotoDetailsModal photo={photosData[0]} toggleModal={toggleModal}/> : ""}
+      <HomeRoute photos={photosData} topics={topicsData} addToFavourites={addToFavourites} favourites={favourites} toggleModal={toggleModal} />
+      {showModal ? <PhotoDetailsModal photoDetails={photoDetails} toggleModal={toggleModal} /> : ""}
     </div>
   );
 };
