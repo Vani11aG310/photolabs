@@ -5,11 +5,11 @@ import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 
 const HomeRoute = (props) => {
-  const  {photos, topics, addToFavourites, favourites} = props;
+  const  {photos, topics, addToFavourites, favourites, toggleModal } = props;
   return (
     <div className="home-route">
       <TopNavigation topics={topics} favourites={favourites}/>
-      <PhotoList photos={photos} addToFavourites={addToFavourites}/>
+      <PhotoList photos={photos} addToFavourites={addToFavourites} toggleModal={toggleModal}/>
     </div>
   );
 };
