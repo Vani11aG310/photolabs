@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './App.scss';
 import './styles/PhotoList.scss'
@@ -10,9 +10,17 @@ import topics from 'mocks/topics';
 const App = () => {
   const photosData = photos;
   const topicsData = topics;
+  const [favourites, setFavourites] = useState([]);
+  const addToFavourites = (photo, likeStatus) => {
+    if (likeStatus) {
+      setFavourites([...favourites, photo])
+    } else {
+      setFavourites(prevFavourites => { return prevFavourites.filter(pic => pic !== photo)})
+    }
+  }
   return (
     <div className="App">
-      <HomeRoute photos={photosData} topics={topicsData}/>
+      <HomeRoute photos={photosData} topics={topicsData} addToFavourites={addToFavourites} favourites={favourites}/>
     </div>
   );
 };
