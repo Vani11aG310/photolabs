@@ -9,7 +9,7 @@ const HomeRoute = (props) => {
   return (
     <div className="home-route">
       <TopNavigation topics={topics} favourites={favourites}/>
-      <PhotoList photos={photos} addToFavourites={addToFavourites} toggleModal={toggleModal}/>
+      <PhotoList photos={photos} addToFavourites={addToFavourites} toggleModal={toggleModal} favourites={favourites} />
     </div>
   );
 };
