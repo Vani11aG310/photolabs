@@ -6,7 +6,7 @@ import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = (props) => {
-  const { photoDetails, addToFavourites, toggleModal, favourites } = props;
+  const { photoDetails, toggleFavourites, toggleModal, favourites } = props;
   
   return (
     <div className="photo-details-modal">
@@ -15,10 +15,10 @@ const PhotoDetailsModal = (props) => {
       </button>
       <header className='photo-details-modal__header'>
         <div className='photo-details-modal__images'>
-          <PhotoFavButton photoID={photoDetails.id} addToFavourites={addToFavourites} favourites={favourites}/>
+          <PhotoFavButton photoID={photoDetails.id} toggleFavourites={toggleFavourites} favourites={favourites}/>
           <img src={photoDetails.urls.full} className='photo-details-modal__image'/>
           <h3>Similar Photos</h3>
-          <PhotoList photos={Object.values(photoDetails.similar_photos)} addToFavourites={addToFavourites} toggleModal={toggleModal} favourites={favourites}/>
+          <PhotoList photos={Object.values(photoDetails.similar_photos)} toggleFavourites={toggleFavourites} toggleModal={toggleModal} favourites={favourites}/>
         </div>
       </header>
     </div>

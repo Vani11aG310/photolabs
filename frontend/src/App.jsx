@@ -14,7 +14,7 @@ const App = () => {
   const [favourites, setFavourites] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [photoDetails, setPhotoDetails] = useState();
-  const addToFavourites = (photoID, likeStatus) => {
+  const toggleFavourites = (photoID, likeStatus) => {
     if (likeStatus) {
       setFavourites([...favourites, photoID]);
     } else {
@@ -29,8 +29,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <HomeRoute photos={photosData} topics={topicsData} addToFavourites={addToFavourites} favourites={favourites} toggleModal={toggleModal} />
-      {showModal ? <PhotoDetailsModal photoDetails={photoDetails} addToFavourites={addToFavourites} favourites={favourites} toggleModal={toggleModal} /> : ""}
+      <HomeRoute photos={photosData} topics={topicsData} toggleFavourites={toggleFavourites} favourites={favourites} toggleModal={toggleModal} />
+      {showModal ? <PhotoDetailsModal photoDetails={photoDetails} toggleFavourites={toggleFavourites} favourites={favourites} toggleModal={toggleModal} /> : ""}
     </div>
   );
 };
