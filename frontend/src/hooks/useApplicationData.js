@@ -1,30 +1,51 @@
-const { useState } = require("react");
+const { useReducer } = require("react");
 
 const useApplicationData = () => {
 
-  const [state, setState] = useState({
+  const reducer = (state, action) => {
+
+    if (action.type === "ADD_PHOTO_TO_FAVOURITES") {
+      return {...state, favePhotos: [...state.favePhotos, action.value]}
+    }
+
+    if (action.type === "REMOVE_PHOTO_FROM_FAVOURITES") {
+      return {...state, favePhotos: [...state.favePhotos].filter((id) => {
+        return id !== action.value
+      })}
+    }
+
+    if (action.type === "SHOW_MODAL") {
+      return {...state, showModal: true, photoDetails: action.value }
+    }
+
+    if (action.type === "CLOSE_MODAL") {
+      return {...state, showModal: false, photoDetails: null }
+    }
+
+    return state;
+
+  }
+
+  const [state, dispatch] = useReducer(reducer, {
     favePhotos: [],
     showModal: false,
     photoDetails: null
-  });
+  })
 
   const updateToFavPhotoIds = (photoID, likeStatus) => {
     if (likeStatus) {
-      setState({...state, favePhotos: [...state.favePhotos, photoID]});
+      dispatch({ type: "ADD_PHOTO_TO_FAVOURITES", value: photoID });
     } else {
-      setState({
-        ...state, favePhotos: [...state.favePhotos].filter((id) => {
-          return id !== photoID
-      })});
+      dispatch({ type: "REMOVE_PHOTO_FROM_FAVOURITES", value: photoID });
     }
   };
 
   const setPhotoSelected = (photo) => {
-    setState({...state, showModal: true, photoDetails: photo});
+    dispatch({ type: "SHOW_MODAL", value: photo })
   };
 
   const onClosePhotoDetailsModal = () => {
-    setState({...state, showModal: false, photoDetails: null})
+    dispatch({ type: "CLOSE_MODAL" })
   }
 
   return {state, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal};
