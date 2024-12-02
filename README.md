@@ -40,3 +40,13 @@ Read `backend/readme` for further setup details.
 cd backend
 npm start
 ```
+## Screenshots
+
+### Homepage
+![Screenshot of application homepage](https://github.com/Vani11aG310/photolabs/blob/main/docs/homepage.png?raw=true)
+
+### Photo Modal
+![Screenshot of a photo's modal](https://github.com/Vani11aG310/photolabs/blob/main/docs/modal.png?raw=true)
+
+### Photo Modal with Like
+![Screenshot of a modal with a liked photo](https://github.com/Vani11aG310/photolabs/blob/main/docs/modal%20with%20like.png?raw=true)
