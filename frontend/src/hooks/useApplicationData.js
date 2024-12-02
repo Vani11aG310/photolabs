@@ -1,4 +1,4 @@
-const { useReducer } = require("react");
+const { useReducer, useEffect } = require("react");
 
 const useApplicationData = () => {
 
@@ -22,6 +22,14 @@ const useApplicationData = () => {
       return {...state, showModal: false, photoDetails: null }
     }
 
+    if (action.type === "SET_PHOTO_DATA") {
+      return {...state, photoData: action.payload}
+    }
+
+    if (action.type === "SET_TOPIC_DATA") {
+      return {...state, topicData: action.payload}
+    }
+
     return state;
 
   }
@@ -29,8 +37,22 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, {
     favePhotos: [],
     showModal: false,
-    photoDetails: null
+    photoDetails: null,
+    photoData: [],
+    topicData: []
   })
+
+  useEffect(() => {
+    fetch('/api/photos')
+      .then(res => res.json())
+      .then(data => dispatch(({ type: "SET_PHOTO_DATA", payload: data})))
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/topics')
+      .then(res => res.json())
+      .then(data => dispatch(({ type: "SET_TOPIC_DATA", payload: data})))
+  }, [])
 
   const updateToFavPhotoIds = (photoID, likeStatus) => {
     if (likeStatus) {
