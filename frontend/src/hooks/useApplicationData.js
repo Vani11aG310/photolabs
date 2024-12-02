@@ -30,6 +30,14 @@ const useApplicationData = () => {
       return {...state, topicData: action.payload}
     }
 
+    if (action.type === "SET_TOPIC") {
+      return {...state, topicID: action.value}
+    }
+
+    if (action.type === "GET_PHOTOS_BY_TOPICS") {
+      return {...state, photoData: action.payload}
+    }
+
     return state;
 
   }
@@ -39,20 +47,29 @@ const useApplicationData = () => {
     showModal: false,
     photoDetails: null,
     photoData: [],
-    topicData: []
+    topicData: [],
+    topicID: null
   })
 
   useEffect(() => {
     fetch('/api/photos')
       .then(res => res.json())
-      .then(data => dispatch(({ type: "SET_PHOTO_DATA", payload: data})))
+      .then(data => dispatch({ type: "SET_PHOTO_DATA", payload: data}))
   }, [])
 
   useEffect(() => {
     fetch('/api/topics')
       .then(res => res.json())
-      .then(data => dispatch(({ type: "SET_TOPIC_DATA", payload: data})))
+      .then(data => dispatch({ type: "SET_TOPIC_DATA", payload: data}))
   }, [])
+
+  useEffect(() => {
+    if (state.topicID) {
+      fetch(`/api/topics/photos/${state.topicID}`)
+        .then(res => res.json())
+        .then(data => dispatch({ type: "GET_PHOTOS_BY_TOPICS", payload: data}))
+    }
+  }, [state.topicID])
 
   const updateToFavPhotoIds = (photoID, likeStatus) => {
     if (likeStatus) {
@@ -70,7 +87,11 @@ const useApplicationData = () => {
     dispatch({ type: "CLOSE_MODAL" })
   }
 
-  return {state, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal};
+  const setTopic = (topicID) => {
+    dispatch({ type: "SET_TOPIC", value: topicID})
+  }
+
+  return {state, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal, setTopic};
 }
 
 export default useApplicationData;
