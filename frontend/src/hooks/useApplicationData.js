@@ -10,7 +10,8 @@ const useApplicationData = () => {
     SET_PHOTO_DATA: "SET_PHOTO_DATA",
     SET_TOPIC_DATA: "SET_TOPIC_DATA",
     SET_TOPIC: "SET_TOPIC",
-    GET_PHOTOS_BY_TOPIC: "GET_PHOTOS_BY_TOPIC"
+    GET_PHOTOS_BY_TOPIC: "GET_PHOTOS_BY_TOPIC",
+    SET_DARK_MODE: "SET_DARK_MODE"
   };
 
   const reducer = (state, action) => {
@@ -51,6 +52,10 @@ const useApplicationData = () => {
       return { ...state, photoData: action.payload };
     }
 
+    if (action.type === ACTIONS.SET_DARK_MODE) {
+      return { ...state, darkMode: action.value };
+    }
+
     return state;
 
   };
@@ -61,7 +66,8 @@ const useApplicationData = () => {
     photoDetails: null,
     photoData: [],
     topicData: [],
-    topicID: null
+    topicID: null,
+    darkMode: false
   });
 
   useEffect(() => {
@@ -84,6 +90,16 @@ const useApplicationData = () => {
     }
   }, [state.topicID]);
 
+  useEffect(() => {
+    if (state.darkMode) {
+      document.body.style.backgroundColor = "black"
+      document.body.style.color = "white"
+    } else {
+      document.body.style.backgroundColor = "white"
+      document.body.style.color = "black"
+    }
+  }, [state.darkMode])
+
   const updateToFavPhotoIds = (photoID, likeStatus) => {
     if (likeStatus) {
       dispatch({ type: ACTIONS.ADD_PHOTO_TO_FAVOURITES, value: photoID });
@@ -104,7 +120,11 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SET_TOPIC, value: topicID });
   };
 
-  return { state, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal, setTopic };
+  const setDarkMode = (darkModeState) => {
+    dispatch({ type: ACTIONS.SET_DARK_MODE, value: darkModeState });
+  };
+
+  return { state, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal, setTopic, setDarkMode };
 };
 
 export default useApplicationData;

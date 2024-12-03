@@ -6,7 +6,7 @@ import PhotoList from 'components/PhotoList';
 
 const HomeRoute = (props) => {
   
-  const { photos, topics, toggleFavourites, favourites, toggleModal, setTopic } = props;
+  const { photos, topics, toggleFavourites, favourites, toggleModal, setTopic, setDarkMode, darkMode } = props;
 
   return (
     <div className="home-route">
@@ -14,6 +14,8 @@ const HomeRoute = (props) => {
         topics={topics}
         favourites={favourites}
         setTopic={setTopic}
+        setDarkMode={setDarkMode}
+        darkMode={darkMode}
       />
       <PhotoList
         photos={photos}
